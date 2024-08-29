@@ -52,16 +52,16 @@ prm_tidy_maria <- prm_tidy_maria %>%
 # data_viz ----------------------------------------------------------------
 
 k_plot_maria <- ggplot() + 
-  geom_line(data= bq1_tidy_maria, aes(x= sample_date, y = k), color='steelblue') + 
-  geom_line(data= prm_tidy_maria, aes(x= sample_date, y = k ), color='green') +
-  geom_line(data= bq2_tidy_maria, aes(x= sample_date, y = k), color='yellow') +
-  geom_line(data= bq3_tidy_maria, aes(x= sample_date, y = k), color='red') 
+  geom_line(data= bq1_tidy_maria, aes(x= sample_date, y = k), color='#E4572E') + 
+  geom_line(data= prm_tidy_maria, aes(x= sample_date, y = k ), color='#FFC914') +
+  geom_line(data= bq2_tidy_maria, aes(x= sample_date, y = k), color='#2E282A') +
+  geom_line(data= bq3_tidy_maria, aes(x= sample_date, y = k), color='#17BEBB')
 
 no3_n_maria <- ggplot() +  
-  geom_line(data= bq2_tidy_maria, aes(x= sample_date, y = no3_n), color='yellow') +
-  geom_line(data= bq3_tidy_maria, aes(x= sample_date, y = no3_n), color='red') +
-  geom_line(data= prm_tidy_maria, aes(x= sample_date, y = no3_n), color='green') +
-  geom_line(data= bq1_tidy_maria, aes(x= sample_date, y = no3_n), color='steelblue')
+  geom_line(data= bq2_tidy_maria, aes(x= sample_date, y = no3_n), color='#2E282A') +
+  geom_line(data= bq3_tidy_maria, aes(x= sample_date, y = no3_n), color='#17BEBB') +
+  geom_line(data= prm_tidy_maria, aes(x= sample_date, y = no3_n), color='#FFC914') +
+  geom_line(data= bq1_tidy_maria, aes(x= sample_date, y = no3_n), color='#E4572E')
 
 k_plot_maria
 no3_n_maria
