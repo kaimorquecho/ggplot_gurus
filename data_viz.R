@@ -4,11 +4,11 @@ k_plot <- ggplot() +
   geom_smooth(data= prm_tidy, aes(x= sample_date, y = k ), color='green') +
   geom_smooth(data= bq2_tidy, aes(x= sample_date, y = k), color='yellow') +
   geom_smooth(data= bq3_tidy, aes(x= sample_date, y = k), color='red') +
-  scale_x_date(position = "top", date_breaks = ("1 year"), date_labels = "%Y")
+  scale_x_date(position = "top", date_breaks = ("1 year"), date_labels = "%Y") +
+  scale_y_continuous(breaks=c(0.4, 0.7, 1.0, 1.3, 1.6))
 
 
-
-no3_n <- ggplot() +  
+no3_n_plot <- ggplot() +  
   geom_smooth(data= bq2_tidy, aes(x= sample_date, y = no3_n), color='yellow') +
   geom_smooth(data= bq3_tidy, aes(x= sample_date, y = no3_n), color='red') +
   geom_smooth(data= prm_tidy, aes(x= sample_date, y = no3_n), color='green') +
