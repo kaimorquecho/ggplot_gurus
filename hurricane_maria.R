@@ -51,17 +51,42 @@ prm_tidy_maria <- prm_tidy_maria %>%
 
 # data_viz ----------------------------------------------------------------
 
+#048A81
+#06D6A0
+#54C6EB
+#8A89C0
+
 k_plot_maria <- ggplot() + 
-  geom_line(data= bq1_tidy_maria, aes(x= sample_date, y = k), color='#E4572E') + 
-  geom_line(data= prm_tidy_maria, aes(x= sample_date, y = k ), color='#FFC914') +
-  geom_line(data= bq2_tidy_maria, aes(x= sample_date, y = k), color='#2E282A') +
-  geom_line(data= bq3_tidy_maria, aes(x= sample_date, y = k), color='#17BEBB')
+  geom_line(data= bq1_tidy_maria, aes(x= sample_date, y = k, color="BQ1"), size=1) + 
+  geom_line(data= bq2_tidy_maria, aes(x= sample_date, y = k, color="BQ2"), size=1) +
+  geom_line(data= bq3_tidy_maria, aes(x= sample_date, y = k, color="BQ3"), size=1) +
+  geom_line(data= prm_tidy_maria, aes(x= sample_date, y = k, color="PRM"), size=1) +
+  scale_color_manual(values = c("BQ1" = "#048A81", "BQ2" = "#06D6A0", "BQ3" = "#54C6EB", "PRM" = "#8A89C0")) +
+  labs(color = "Sites") +
+  theme(legend.position = c(0.2, 0.8),
+        legend.background = element_blank())
+ 
 
 no3_n_maria <- ggplot() +  
-  geom_line(data= bq2_tidy_maria, aes(x= sample_date, y = no3_n), color='#2E282A') +
-  geom_line(data= bq3_tidy_maria, aes(x= sample_date, y = no3_n), color='#17BEBB') +
-  geom_line(data= prm_tidy_maria, aes(x= sample_date, y = no3_n), color='#FFC914') +
-  geom_line(data= bq1_tidy_maria, aes(x= sample_date, y = no3_n), color='#E4572E')
+  geom_line(data = bq1_tidy_maria, aes(x = sample_date, y = no3_n, color = "BQ1"), size = 1) +
+  geom_line(data = bq2_tidy_maria, aes(x = sample_date, y = no3_n, color = "BQ2"), size = 1) +
+  geom_line(data = bq3_tidy_maria, aes(x = sample_date, y = no3_n, color = "BQ3"), size = 1) +
+  geom_line(data = prm_tidy_maria, aes(x = sample_date, y = no3_n, color = "PRM"), size = 1) +
+  scale_color_manual(values = c("BQ1" = "#048A81", "BQ2" = "#06D6A0", "BQ3" = "#54C6EB", "PRM" = "#8A89C0")) +
+  labs(color = "Sites") +
+  theme(legend.position = c(0.2, 0.8),
+        legend.background = element_blank())
+
 
 k_plot_maria
 no3_n_maria
+
+
+
+
+#######
+
+
+
+
+
