@@ -17,9 +17,9 @@ k_plot <- ggplot() +
   theme(plot.margin = margin(0, 0, 0, 0),
         panel.spacing = unit(0, "lines"),
         panel.background = element_blank(),
-        axis.line.x.bottom = element_blank(),
-        axis.line.x.top = element_line(colour = "black",linewidth=0.5),
-        axis.line.y.right =  element_line(colour = "black",linewidth=0.5),
+        axis.line.x.bottom = element_blank(), # making bottom of graph blank
+        axis.line.x.top = element_line(colour = "black",linewidth=0.5), # adding top border
+        axis.line.y.right =  element_line(colour = "black",linewidth=0.5), # adding right border but didn't re
         axis.line.y.left =  element_line(colour = "black",linewidth=0.5)) +
   geom_vline(xintercept = as.numeric(as.Date("1989-09-10")), 
              color = "black", linetype = "dashed") +
@@ -73,7 +73,7 @@ no3_n_plot <- ggplot() +
         plot.margin = margin(0, 0, 0, 0),
         panel.spacing = unit(0, "lines"),
         panel.background = element_blank(),
-        panel.border = element_rect(colour = "black", fill=NA, size=1)) +
+        panel.border = element_rect(colour = "black", fill=NA, size=1)) # added border +
   geom_vline(xintercept = as.numeric(as.Date("1989-09-10")), 
              color = "black", linetype = "dashed") +
   annotate("text", x = (as.Date("1988-04-10", "%Y-%m-%d")),
