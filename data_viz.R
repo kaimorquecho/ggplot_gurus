@@ -2,13 +2,13 @@ library(patchwork)
 
 k_plot <- ggplot() + 
   geom_smooth(data= bq1_tidy, aes(x= sample_date, y = k),
-              linetype = "dotted", color = "black", linewidth = .7, se = FALSE, span = 0.1 ) + 
+              linetype = "dotted", color = "black", linewidth = .5, se = FALSE, span = 0.06 ) + 
   geom_smooth(data= prm_tidy, aes(x= sample_date, y = k ),
-              linetype= "solid", color = "black", linewidth = .7, se = FALSE, span = 0.1) +
+              linetype= "solid", color = "black", linewidth = .5, se = FALSE, span = 0.06) +
   geom_smooth(data= bq2_tidy, aes(x= sample_date, y = k),
-              linetype = "dashed", color = "black", linewidth = .7, se = FALSE, span = 0.1) +
+              linetype = "dashed", color = "black", linewidth = .5, se = FALSE, span = 0.06) +
   geom_smooth(data= bq3_tidy, aes(x= sample_date, y = k),
-              linetype = "dotdash", color = "black", linewidth = .7, se = FALSE, span = 0.1) +
+              linetype = "dotdash", color = "black", linewidth = .5, se = FALSE, span = 0.06) +
   scale_x_continuous(position = "top", labels = 1988:1994,
                      breaks = seq.Date(from = as.Date("1988-01-01"),
                                        to = as.Date("1994-01-01") , by = "1 year")) +
@@ -35,18 +35,34 @@ k_plot <- ggplot() +
                 xmax = as.Date("1988-11-01"),
                 ymin = 0.5,
                 ymax = 1.3,),
-            fill = "white")
+            fill = "white") +
+  annotate("text", x = (as.Date("1993-08-15", "%Y-%m-%d")),
+           y = 1.45, label = "_____", color = "black") +
+  annotate("text", x = (as.Date("1993-09-01", "%Y-%m-%d")),
+           y = 1.23, label = ". . . . .", color = "black") +
+  annotate("text", x = (as.Date("1993-09-01", "%Y-%m-%d")),
+           y = 1.0, label = "- - - - -", color = "black") +
+  annotate("text", x = (as.Date("1993-09-01", "%Y-%m-%d")),
+           y = 0.85, label = "_ __ _", color = "black") +
+  annotate("text", x = (as.Date("1994-04-10", "%Y-%m-%d")),
+           y = 1.4, label = "PRM", color = "black") +
+  annotate("text", x = (as.Date("1994-04-10", "%Y-%m-%d")),
+           y = 1.2, label = "BQ1", color = "black") +
+  annotate("text", x = (as.Date("1994-04-10", "%Y-%m-%d")),
+           y = 1.0, label = "BQ2", color = "black") +
+  annotate("text", x = (as.Date("1994-04-10", "%Y-%m-%d")),
+           y = 0.8, label = "BQ3", color = "black")
 
 
 no3_n_plot <- ggplot() +  
   geom_smooth(data= bq2_tidy, aes(x= sample_date, y = no3_n), linetype = "dotted"
-              , color = "black", linewidth = .7, se = FALSE, span = 0.1) +
+              , color = "black", linewidth = .5, se = FALSE, span = 0.07) +
   geom_smooth(data= bq3_tidy, aes(x= sample_date, y = no3_n), linetype = "solid"
-              , color = "black", linewidth = .7, se = FALSE, span = 0.1) +
+              , color = "black", linewidth = .5, se = FALSE, span = 0.07) +
   geom_smooth(data= prm_tidy, aes(x= sample_date, y = no3_n), linetype= "dashed"
-              , color = "black", linewidth = .7, se = FALSE, span = 0.1) +
+              , color = "black", linewidth = .5, se = FALSE, span = 0.07) +
   geom_smooth(data= bq1_tidy, aes(x= sample_date, y = no3_n), linetype = "dotdash"
-              , color = "black", linewidth = .7, se = FALSE, span = 0.1) +
+              , color = "black", linewidth = .5, se = FALSE, span = 0.07) +
   scale_y_continuous(breaks = c(100, 300, 500))  +
   scale_x_continuous(position = "bottom", labels = 1988:1994,
                      breaks = seq.Date(from = as.Date("1988-01-01"),
@@ -66,7 +82,7 @@ no3_n_plot <- ggplot() +
                 xmax = as.Date("1988-11-01"),
                 ymin = 10,
                 ymax = 300),
-            fill = "white")
+            fill = "white") 
 
 combined_plot <- k_plot / no3_n_plot +
   plot_layout(ncol = 1, heights = c(1, 1))
