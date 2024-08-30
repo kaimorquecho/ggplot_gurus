@@ -32,3 +32,16 @@ prm_tidy <- prm %>%
 
 prm_tidy <- prm_tidy %>%
   filter(between(sample_date, as.Date('1988-01-01'), as.Date('1994-12-31')))
+
+bq1_92 <- bq1_tidy %>%
+  filter(between(sample_date, as.Date('1988-01-01'), as.Date('1992-04-01')))
+
+bq2_92 <- bq2_tidy %>%
+  filter(between(sample_date, as.Date('1988-01-01'), as.Date('1992-04-01')))
+
+bq3_92 <- bq3_tidy %>%
+  filter(between(sample_date, as.Date('1988-01-01'), as.Date('1992-04-01')))
+
+prm_92 <- prm_tidy %>%
+  filter(between(sample_date, as.Date('1988-01-01'), as.Date('1992-04-01')))
+
