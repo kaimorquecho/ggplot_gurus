@@ -64,7 +64,7 @@ k_plot_maria <- ggplot() +
   geom_line(data= prm_tidy_maria, aes(x= sample_date, y = k, color="PRM"), size=1.5) +
   scale_color_manual(values = c("BQ1" = "#048A81", "BQ2" = "#06D6A0", "BQ3" = "#54C6EB", "PRM" = "#8A89C0")) +
   geom_vline(xintercept = as.Date("2017-09-16"), linetype = "dashed", color="navy") +
-  annotate("text", x=as.Date("2017-11-05"), y=1.9, label= "Hurricane Maria\n09-16-2017") +
+  annotate("text", x=as.Date("2017-11-16"), y=1.9, label= "Hurricane Maria\nSeptember 16, 2017") +
   labs(color = "Sites") +
   theme(legend.position = c(0.25, 0.8),
         legend.background = element_blank(),
@@ -72,7 +72,7 @@ k_plot_maria <- ggplot() +
         legend.key.height  = unit(1, 'cm'),
         legend.key.width = unit(4, 'cm'),
         plot.title = element_text(hjust = 0.5, size= 25)) +
-  labs(x="Sample Date", y="Nitrate Content", title = "Effects of Hurricane Maria on Potassium Content in Luquillo Creeks")
+  labs(x="Sample Date", y="Potassium Content\n(mg/L)", title = "Effects of Hurricane Maria on Potassium Content in Luquillo Creeks")
  
 #####
 
@@ -83,7 +83,7 @@ no3_n_maria <- ggplot() +
   geom_line(data = prm_tidy_maria, aes(x = sample_date, y = no3_n, color = "PRM"), size = 1.5) +
   scale_color_manual(values = c("BQ1" = "#048A81", "BQ2" = "#06D6A0", "BQ3" = "#54C6EB", "PRM" = "#8A89C0")) +
   geom_vline(xintercept = as.Date("2017-09-16"), linetype = "dashed", color="navy") +
-  annotate("text", x=as.Date("2017-07-26"), y=700, label= "Hurricane Maria\n09-16-2017") +
+  annotate("text", x=as.Date("2017-07-10"), y=700, label= "Hurricane Maria\nSeptember 16, 2017") +
   labs(color = "Sites") +
   theme(legend.position = c(0.2, 0.8),
         legend.background = element_blank(),
@@ -91,7 +91,7 @@ no3_n_maria <- ggplot() +
         legend.key.height  = unit(1, 'cm'),
         legend.key.width = unit(4, 'cm'),
         plot.title = element_text(hjust = 0.5, size= 25)) +
-  labs(x="Sample Date", y="Nitrate Content", title = "Effects of Hurricane Maria on Nitrate Content in Luquillo Creeks")
+  labs(x="Sample Date", y="Nitrate Content\n(μg/L)", title = "Effects of Hurricane Maria on Nitrate Content in Luquillo Creeks")
 
 
 ######
