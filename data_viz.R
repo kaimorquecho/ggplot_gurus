@@ -13,7 +13,7 @@ k_plot <- ggplot() +
                      breaks = seq.Date(from = as.Date("1988-01-01"),
                                        to = as.Date("1994-01-01") , by = "1 year")) +
   scale_y_continuous(breaks=seq(0.4, 1.6, by = 0.3), limits = c(0.4, 1.6)) +
-  labs(x = "Year", y = expression("K mg l"^-1)) +
+  labs(x = "Years", y = expression("K mg l"^-1)) +
   theme(plot.margin = margin(0, 0, 0, 0),
         panel.spacing = unit(0, "lines"),
         panel.background = element_blank(),
@@ -47,7 +47,10 @@ no3_n_plot <- ggplot() +
               , color = "black", linewidth = .7, se = FALSE, span = 0.1) +
   geom_smooth(data= bq1_tidy, aes(x= sample_date, y = no3_n), linetype = "dotdash"
               , color = "black", linewidth = .7, se = FALSE, span = 0.1) +
-  scale_y_continuous(breaks=c(5, 100, 300, 500)) + 
+  scale_y_continuous(breaks = c(100, 300, 500))  +
+  scale_x_continuous(position = "bottom", labels = 1988:1994,
+                     breaks = seq.Date(from = as.Date("1988-01-01"),
+                                       to = as.Date("1994-01-01") , by = "1 year")) +
   labs(x = " ", y = (expression(NO[3]*"-N ug l"^-1))) + 
   theme(axis.title.x = element_blank(),
         axis.text.x = element_blank(),
