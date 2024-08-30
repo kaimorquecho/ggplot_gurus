@@ -1,6 +1,6 @@
 ---
 title: "ggplot() gurus"
-author: "Kimmy, Ryan, Kai, Jo"
+authors: "Kimmy, Ryan, Kai, Jo"
 format: html
 editor: visual
 editor_options: 
@@ -8,7 +8,9 @@ editor_options:
 ---
 
 # Impact of Hurricane Hugo on Stream Chemistry
+
 ## Import Raw Data
+
 ```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 
@@ -23,14 +25,14 @@ bq3 <- read_csv(file.path(ggg_path, "QuebradaCuenca3-Bisley.csv"))
 prm <- read_csv(file.path(ggg_path, "RioMameyesPuenteRoto.csv"))
 ```
 
-
 ## Clean Data
+
 ```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(janitor)
 library(dplyr)
 
-# clean data names and select columns of interest(sample date, K, NO3_N)
+# clean data names and select columns of interest(sample date, K, NO3_N) ----
 bq1_tidy <- bq1 %>%
   select(Sample_Date, K, `NO3-N`) %>%
   clean_names()
@@ -50,7 +52,7 @@ bq3_tidy <- bq3 %>%
   select(Sample_Date, K, `NO3-N`) %>%
   clean_names()
 
-# filter dates between 1988 and 1994
+# filter dates between 1988 and 1994 ----
 bq3_tidy <- bq3_tidy %>%
   filter(between(sample_date, as.Date('1988-01-01'), as.Date('1994-12-31')))
 
@@ -63,7 +65,8 @@ prm_tidy <- prm_tidy %>%
 
 ```
 
-## Data Visualization 
+## Data Visualization
+
 ```{r, message=FALSE, warning=FALSE}
 library(patchwork)
 
@@ -80,7 +83,7 @@ k_plot <- ggplot() +
                      breaks = seq.Date(from = as.Date("1988-01-01"),
                                        to = as.Date("1994-01-01") , by = "1 year")) +
   scale_y_continuous(breaks=seq(0.4, 1.6, by = 0.3), limits = c(0.4, 1.6)) +
-  labs(x = "Year", y = expression("K mg l"^-1)) +
+  labs(x = "Years", y = expression("K mg l"^-1)) +
   theme(plot.margin = margin(0, 0, 0, 0),
         panel.spacing = unit(0, "lines"),
         panel.background = element_blank(),
@@ -89,38 +92,51 @@ k_plot <- ggplot() +
         axis.line.y.right =  element_line(colour = "black",linewidth=0.5),
         axis.line.y.left =  element_line(colour = "black",linewidth=0.5)) +
   geom_vline(xintercept = as.numeric(as.Date("1989-09-10")), 
-           color = "black", linetype = "dashed") +
+             color = "black", linetype = "dashed") +
   annotate("text", x = as.numeric(as.Date("1988-04-10")),
            y = 1.5, label = "(a)", color = "black") +
   annotate(geom = 'segment', x = Inf, xend = Inf, color = 'black', y = -Inf, yend = Inf, size = 1) +
-  geom_rect(aes(xmin = as.Date("1992-04-10"),
+  geom_rect(aes(xmin = as.Date("1992-08-10"),
                 xmax = as.Date("1995-01-01"),
                 ymin = 0.5,
                 ymax = 1.5,),
+            fill = "white") +
+  geom_rect(aes(xmin = as.Date("1988-01-01"),
+                xmax = as.Date("1988-11-01"),
+                ymin = 0.5,
+                ymax = 1.3,),
             fill = "white")
 
-  
+
 no3_n_plot <- ggplot() +  
-  geom_smooth(data= bq2_tidy, aes(x= sample_date, y = no3_n), linetype = "dashed"
+  geom_smooth(data= bq2_tidy, aes(x= sample_date, y = no3_n), linetype = "dotted"
               , color = "black", linewidth = .7, se = FALSE, span = 0.1) +
-  geom_smooth(data= bq3_tidy, aes(x= sample_date, y = no3_n), linetype = "dotdash"
+  geom_smooth(data= bq3_tidy, aes(x= sample_date, y = no3_n), linetype = "solid"
               , color = "black", linewidth = .7, se = FALSE, span = 0.1) +
-  geom_smooth(data= prm_tidy, aes(x= sample_date, y = no3_n), linetype= "solid"
+  geom_smooth(data= prm_tidy, aes(x= sample_date, y = no3_n), linetype= "dashed"
               , color = "black", linewidth = .7, se = FALSE, span = 0.1) +
-  geom_smooth(data= bq1_tidy, aes(x= sample_date, y = no3_n), linetype = "dotted"
+  geom_smooth(data= bq1_tidy, aes(x= sample_date, y = no3_n), linetype = "dotdash"
               , color = "black", linewidth = .7, se = FALSE, span = 0.1) +
-  scale_y_continuous(breaks=c(5, 100, 300, 500)) + 
+  scale_y_continuous(breaks = c(100, 300, 500))  +
+  scale_x_continuous(position = "bottom", labels = 1988:1994,
+                     breaks = seq.Date(from = as.Date("1988-01-01"),
+                                       to = as.Date("1994-01-01") , by = "1 year")) +
   labs(x = " ", y = (expression(NO[3]*"-N ug l"^-1))) + 
   theme(axis.title.x = element_blank(),
-      axis.text.x = element_blank(),
-      plot.margin = margin(0, 0, 0, 0),
-      panel.spacing = unit(0, "lines"),
-      panel.background = element_blank(),
-      panel.border = element_rect(colour = "black", fill=NA, size=1)) +
+        axis.text.x = element_blank(),
+        plot.margin = margin(0, 0, 0, 0),
+        panel.spacing = unit(0, "lines"),
+        panel.background = element_blank(),
+        panel.border = element_rect(colour = "black", fill=NA, size=1)) +
   geom_vline(xintercept = as.numeric(as.Date("1989-09-10")), 
              color = "black", linetype = "dashed") +
   annotate("text", x = (as.Date("1988-04-10", "%Y-%m-%d")),
-           y = 475, label = "(b)", color = "black") 
+           y = 440, label = "(b)", color = "black")  +
+  geom_rect(aes(xmin = as.Date("1988-01-01"),
+                xmax = as.Date("1988-11-01"),
+                ymin = 10,
+                ymax = 300),
+            fill = "white")
 
 combined_plot <- k_plot / no3_n_plot +
   plot_layout(ncol = 1, heights = c(1, 1))
@@ -128,14 +144,14 @@ combined_plot <- k_plot / no3_n_plot +
 combined_plot
 ```
 
-
 # Hurricane Maria Comparison
+
 ```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(janitor)
 library(dplyr)
 
-# data_read ---------------------------------------------------------------
+# data_read ----
 
 
 ggg_path <- "/courses/EDS214/group_project/2024/ggplot-gurus/raw_data"
@@ -149,7 +165,7 @@ bq3 <- read_csv(file.path(ggg_path, "QuebradaCuenca3-Bisley.csv"))
 prm <- read_csv(file.path(ggg_path, "RioMameyesPuenteRoto.csv"))
 
 
-# data_clean --------------------------------------------------------------
+# data_clean ----
 
 bq1_tidy_maria <- bq1 %>%
   select(Sample_Date, K, `NO3-N`) %>%
@@ -183,7 +199,7 @@ prm_tidy_maria <- prm_tidy_maria %>%
 
 
 
-# data_viz ----------------------------------------------------------------
+# data_viz ----
 
 #048A81
 #06D6A0
@@ -207,7 +223,6 @@ k_plot_maria <- ggplot() +
         plot.title = element_text(hjust = 0.5, size= 25)) +
   labs(x="Sample Date", y="Potassium Content\n(mg/L)", title = "Effects of Hurricane Maria on Potassium Content in Luquillo Creeks")
  
-#####
 
 no3_n_maria <- ggplot() +  
   geom_line(data = bq1_tidy_maria, aes(x = sample_date, y = no3_n, color = "BQ1"), size = 1.5) +
@@ -227,11 +242,8 @@ no3_n_maria <- ggplot() +
   labs(x="Sample Date", y="Nitrate Content\n(μg/L)", title = "Effects of Hurricane Maria on Nitrate Content in Luquillo Creeks")
 
 
-######
-
-k_plot_maria
-no3_n_maria
-
-
 ```
 
+![](k_plot_maria.png)
+
+![](n03_plot_maria.png)
