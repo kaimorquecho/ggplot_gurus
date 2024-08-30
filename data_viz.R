@@ -34,14 +34,15 @@ k_plot <- ggplot() +
 
   
 no3_n_plot <- ggplot() +  
-  geom_smooth(data= bq2_tidy, aes(x= sample_date, y = no3_n), linetype = "dashed"
-              , color = "black", linewidth = .7, se = FALSE, span = 0.1) +
-  geom_smooth(data= bq3_tidy, aes(x= sample_date, y = no3_n), linetype = "dotdash"
-              , color = "black", linewidth = .7, se = FALSE, span = 0.1) +
-  geom_smooth(data= prm_tidy, aes(x= sample_date, y = no3_n), linetype= "solid"
-              , color = "black", linewidth = .7, se = FALSE, span = 0.1) +
-  geom_smooth(data= bq1_tidy, aes(x= sample_date, y = no3_n), linetype = "dotted"
-              , color = "black", linewidth = .7, se = FALSE, span = 0.1) +
+  # scale_linetype_manual(values = c("BQ1" = "dotted", "BQ2" = "dashed", "BQ3" = "dotdash", "PRM" = "solid")) +
+  # geom_smooth(data= bq2_tidy, aes(x= sample_date, y = no3_n), linetype = "BQ1"
+  #             , color = "black", linewidth = .7, se = FALSE, span = 0.1) +
+  # geom_smooth(data= bq3_tidy, aes(x= sample_date, y = no3_n), linetype = "BQ3"
+  #             , color = "black", linewidth = .7, se = FALSE, span = 0.1) +
+  # geom_smooth(data= prm_tidy, aes(x= sample_date, y = no3_n), linetype= "PRM"
+  #             , color = "black", linewidth = .7, se = FALSE, span = 0.1) +
+  # geom_smooth(data= bq1_tidy, aes(x= sample_date, y = no3_n), linetype = "BQ1"
+  #             , color = "black", linewidth = .7, se = FALSE, span = 0.1) +
   scale_y_continuous(breaks=c(5, 100, 300, 500)) + 
   labs(x = " ", y = (expression(NO[3]*"-N ug l"^-1))) + 
   theme(axis.title.x = element_blank(),
@@ -49,11 +50,16 @@ no3_n_plot <- ggplot() +
       plot.margin = margin(0, 0, 0, 0),
       panel.spacing = unit(0, "lines"),
       panel.background = element_blank(),
-      panel.border = element_rect(colour = "black", fill=NA, size=1)) +
+      panel.border = element_rect(colour = "black", fill=NA, size=1),
+      # legend.position = c(0.25, 0.8),
+      # legend.background = element_blank(),
+      # legend.key.size = unit(10, 'cm'),
+      # legend.key.height  = unit(1, 'cm'),
+      # legend.key.width = unit(4, 'cm')) +
   geom_vline(xintercept = as.numeric(as.Date("1989-09-10")), 
              color = "black", linetype = "dashed") +
   annotate("text", x = (as.Date("1988-04-10", "%Y-%m-%d")),
-           y = 475, label = "(b)", color = "black") 
+           y = 440, label = "(b)", color = "black") 
 
 combined_plot <- k_plot / no3_n_plot +
   plot_layout(ncol = 1, heights = c(1, 1))
